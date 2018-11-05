@@ -6,26 +6,36 @@ import com.model.Item;
 import com.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class ItemController {
     @Autowired
     private ItemService itemService;
 
-    public Item save(Item item) throws InternalServerError, BadRequestException {
-        return itemService.save(item);
+    @RequestMapping(method = RequestMethod.GET, value = "/orderSave", produces = "text/plan")
+    public @ResponseBody
+    String save(Item item) throws InternalServerError, BadRequestException {
+        return "Item saved with id: "+itemService.save(item).getId();
     }
 
-    public Item update(Item item) throws InternalServerError, BadRequestException{
-        return itemService.update(item);
+    @RequestMapping(method = RequestMethod.GET, value = "/orderSave", produces = "text/plan")
+    public @ResponseBody
+    String update(Item item) throws InternalServerError, BadRequestException{
+        return "Item with id: "+itemService.update(item)+"was updated";
     }
 
-    public Item delete(Long id) throws InternalServerError, BadRequestException{
-        return itemService.delete(id);
+    @RequestMapping(method = RequestMethod.GET, value = "/orderSave", produces = "text/plan")
+    public @ResponseBody
+    String delete(Long id) throws InternalServerError, BadRequestException{
+        return "Item with id: "+itemService.delete(id)+" was deleted";
     }
 
-    public Item findById(Long id) throws InternalServerError, BadRequestException{
-        return itemService.findById(id);
+    @RequestMapping(method = RequestMethod.GET, value = "/orderSave", produces = "text/plan")
+    public @ResponseBody
+    String findById(Long id) throws InternalServerError, BadRequestException{
+        return itemService.findById(id).toString();
     }
-
 }

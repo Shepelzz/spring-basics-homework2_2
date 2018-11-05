@@ -28,7 +28,6 @@ public class ItemDAO {
             session.save(item);
 
             session.getTransaction().commit();
-            System.out.println(item.getClass().getName()+" saved with id:"+item.getId());
             return item;
         } catch (HibernateException e) {
             if (transaction != null)
@@ -47,7 +46,6 @@ public class ItemDAO {
             session.update(item);
 
             session.getTransaction().commit();
-            System.out.println(item.getClass().getName()+" updated");
             return item;
         } catch (HibernateException e) {
             if (transaction != null)
@@ -65,7 +63,6 @@ public class ItemDAO {
             session.delete(item);
 
             session.getTransaction().commit();
-            System.out.println(item.getClass().getName()+" id:"+item.getId()+" was deleted");
             return item;
         } catch (HibernateException e) {
             if (transaction != null)
