@@ -10,6 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+//ОТЛИЧНАЯ СТАТЬЯ!
+//https://www.journaldev.com/3531/spring-mvc-hibernate-mysql-integration-crud-example-tutorial
+
+
 @Controller
 public class ItemController {
     @Autowired
