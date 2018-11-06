@@ -66,9 +66,9 @@ public class Item {
         return "Item{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", dateCreated=" + dateCreated.toString() +
-                ", lastUpdatedDate=" + lastUpdatedDate.toString() +
-                ", description='" + description + '\'' +
+                ", dateCreated=" + (dateCreated == null ? "" : dateCreated.toString()) + '\'' +
+                ", lastUpdatedDate=" + lastUpdatedDate.toString() + '\'' +
+                ", description='" + (description == null ? "" : description) + '\'' +
                 '}';
     }
 

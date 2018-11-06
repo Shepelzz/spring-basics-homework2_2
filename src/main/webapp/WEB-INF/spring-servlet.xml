@@ -9,7 +9,11 @@
 
     <context:component-scan base-package="com"/>
 
-    <bean id="route" class="com.service.ItemService"/>
-    <bean id="service" class="com.dao.ItemDAO"/>
+    <bean id="itemController" class="com.controller.ItemController"/>
+    <bean id="itemService" class="com.service.ItemService"/>
+    <bean id="itemDAO" class="com.dao.ItemDAO"/>
 
 </beans>
+
+
+

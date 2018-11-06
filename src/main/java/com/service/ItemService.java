@@ -5,18 +5,27 @@ import com.exception.BadRequestException;
 import com.exception.InternalServerError;
 import com.model.Item;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
+@Service
 public class ItemService {
     @Autowired
     private ItemDAO itemDAO;
 
     public Item save(Item item) throws InternalServerError, BadRequestException {
         validateItem(item);
+
+        item.setDateCreated(new Date());
+        item.setLastUpdatedDate(new Date());
         return itemDAO.save(item);
     }
 
     public Item update(Item item) throws InternalServerError, BadRequestException {
         validateItem(item);
+
+        item.setLastUpdatedDate(new Date());
         return itemDAO.update(item);
     }
 
@@ -29,7 +38,10 @@ public class ItemService {
     }
 
     public Item findById(Long id) throws InternalServerError, BadRequestException{
-        return itemDAO.findById(id);
+        Item item = itemDAO.findById(id);
+        if(item != null)
+            return item;
+        throw new BadRequestException("There is no item with id: "+id);
     }
 
     private void validateItem(Item item) throws InternalServerError , BadRequestException {

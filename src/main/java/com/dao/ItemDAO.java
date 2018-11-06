@@ -8,10 +8,11 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.NoResultException;
-import java.util.Date;
 
+@Repository
 public class ItemDAO {
     private SessionFactory sessionFactory;
 
@@ -23,15 +24,11 @@ public class ItemDAO {
             transaction = session.getTransaction();
             transaction.begin();
 
-            item.setDateCreated(new Date());
-            item.setLastUpdatedDate(new Date());
             session.save(item);
 
             session.getTransaction().commit();
             return item;
         } catch (HibernateException e) {
-            if (transaction != null)
-                transaction.rollback();
             throw new InternalServerError("Save "+item.getClass().getSimpleName()+": "+item.toString()+" failed"+e.getMessage());
         }
     }
@@ -42,14 +39,11 @@ public class ItemDAO {
             transaction = session.getTransaction();
             transaction.begin();
 
-            item.setLastUpdatedDate(new Date());
             session.update(item);
 
             session.getTransaction().commit();
             return item;
         } catch (HibernateException e) {
-            if (transaction != null)
-                transaction.rollback();
             throw new InternalServerError("Update "+item.getClass().getSimpleName()+": "+item.toString()+" failed"+e.getMessage());
         }
     }
@@ -65,17 +59,13 @@ public class ItemDAO {
             session.getTransaction().commit();
             return item;
         } catch (HibernateException e) {
-            if (transaction != null)
-                transaction.rollback();
             throw new InternalServerError("Delete "+item.getClass().getSimpleName()+": "+item.toString()+" failed"+e.getMessage());
         }
     }
 
     public Item findById(Long id) throws InternalServerError, BadRequestException {
         try (Session session = createSessionFactory().openSession()) {
-
             return session.get(Item.class, id);
-
         } catch (HibernateException e) {
             throw new InternalServerError(getClass().getSimpleName()+"-findById: "+id+" failed. "+e.getMessage());
         } catch (NoResultException noe){
@@ -85,11 +75,9 @@ public class ItemDAO {
 
     public Item findByName(String name) throws InternalServerError{
         try (Session session = createSessionFactory().openSession()) {
-
             return (Item) session.createSQLQuery(SQL_FIND_ITEM_BY_NAME)
                     .setParameter("name", name)
                     .addEntity(Item.class).getSingleResult();
-
         } catch (HibernateException e) {
             throw new InternalServerError(getClass().getSimpleName()+"-findByName: "+name+" failed. "+e.getMessage());
         } catch (NoResultException e){
