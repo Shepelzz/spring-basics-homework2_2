@@ -29,6 +29,8 @@ public class ItemDAO {
             session.getTransaction().commit();
             return item;
         } catch (HibernateException e) {
+            if (transaction != null)
+                transaction.rollback();
             throw new InternalServerError("Save "+item.getClass().getSimpleName()+": "+item.toString()+" failed"+e.getMessage());
         }
     }
@@ -44,6 +46,8 @@ public class ItemDAO {
             session.getTransaction().commit();
             return item;
         } catch (HibernateException e) {
+            if (transaction != null)
+                transaction.rollback();
             throw new InternalServerError("Update "+item.getClass().getSimpleName()+": "+item.toString()+" failed"+e.getMessage());
         }
     }
@@ -59,6 +63,8 @@ public class ItemDAO {
             session.getTransaction().commit();
             return item;
         } catch (HibernateException e) {
+            if (transaction != null)
+                transaction.rollback();
             throw new InternalServerError("Delete "+item.getClass().getSimpleName()+": "+item.toString()+" failed"+e.getMessage());
         }
     }
