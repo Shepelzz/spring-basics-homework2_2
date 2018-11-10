@@ -23,7 +23,7 @@ public class ItemController {
 
     @RequestMapping(method = RequestMethod.POST, value = "/orderSave", produces = "text/plan")
     public @ResponseBody
-    String save(InputStream dataStream) throws InternalServerError, BadRequestException, IOException {
+    String save(InputStream dataStream) {
         try {
             return "Item saved with id: " + itemService.save(new ObjectMapper().readValue(dataStream, Item.class)).getId();
         }catch (Exception e){
@@ -33,7 +33,7 @@ public class ItemController {
 
     @RequestMapping(method = RequestMethod.PUT, value = "/orderUpdate", produces = "text/plan")
     public @ResponseBody
-    String update(InputStream dataStream) throws InternalServerError, BadRequestException, IOException{
+    String update(InputStream dataStream) {
         try {
             return "Item with id: "+itemService.update(new ObjectMapper().readValue(dataStream, Item.class)).getId()+" was updated";
         }catch (Exception e){
@@ -43,7 +43,7 @@ public class ItemController {
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/orderDelete", produces = "text/plan")
     public @ResponseBody
-    String delete(@RequestParam("id") Long id) throws InternalServerError, BadRequestException{
+    String delete(@RequestParam("id") Long id) {
         try{
             return "Item with id: "+itemService.delete(id).getId()+" was deleted";
         }catch (Exception e){
@@ -53,7 +53,7 @@ public class ItemController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/orderGet", produces = "text/plan")
     public @ResponseBody
-    String findById(@RequestParam("id") Long id) throws InternalServerError, BadRequestException{
+    String findById(@RequestParam("id") Long id) {
         try{
             return itemService.findById(id).toString();
         }catch (Exception e){
