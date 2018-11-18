@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.NoResultException;
 
-@Repository
+//@Repository
 public class ItemDAO {
     private SessionFactory sessionFactory;
 

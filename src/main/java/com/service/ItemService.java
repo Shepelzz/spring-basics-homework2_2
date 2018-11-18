@@ -9,10 +9,15 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 
-@Service
+//@Service
 public class ItemService {
-    @Autowired
+
     private ItemDAO itemDAO;
+
+    //@Autowired
+    public ItemService(ItemDAO itemDAO) {
+        this.itemDAO = itemDAO;
+    }
 
     public Item save(Item item) throws InternalServerError, BadRequestException {
         validateItem(item);

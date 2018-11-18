@@ -16,10 +16,15 @@ import java.io.IOException;
 import java.io.InputStream;
 
 
-@Controller
+//@Controller
 public class ItemController {
-    @Autowired
+
     private ItemService itemService;
+
+    //@Autowired
+    public ItemController(ItemService itemService) {
+        this.itemService = itemService;
+    }
 
     @RequestMapping(method = RequestMethod.POST, value = "/orderSave", produces = "text/plan")
     public @ResponseBody
