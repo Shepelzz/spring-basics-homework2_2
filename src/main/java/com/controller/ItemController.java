@@ -1,7 +1,5 @@
 package com.controller;
 
-import com.exception.BadRequestException;
-import com.exception.InternalServerError;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.model.Item;
 import com.service.ItemService;
@@ -12,21 +10,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.io.IOException;
 import java.io.InputStream;
 
 
-//@Controller
+@Controller
 public class ItemController {
 
     private ItemService itemService;
 
-    //@Autowired
+    @Autowired
     public ItemController(ItemService itemService) {
         this.itemService = itemService;
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/orderSave", produces = "text/plan")
+    @RequestMapping(method = RequestMethod.POST, value = "/itemSave", produces = "text/plan")
     public @ResponseBody
     String save(InputStream dataStream) {
         try {
@@ -36,7 +33,7 @@ public class ItemController {
         }
     }
 
-    @RequestMapping(method = RequestMethod.PUT, value = "/orderUpdate", produces = "text/plan")
+    @RequestMapping(method = RequestMethod.PUT, value = "/itemUpdate", produces = "text/plan")
     public @ResponseBody
     String update(InputStream dataStream) {
         try {
@@ -46,7 +43,7 @@ public class ItemController {
         }
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, value = "/orderDelete", produces = "text/plan")
+    @RequestMapping(method = RequestMethod.DELETE, value = "/itemDelete", produces = "text/plan")
     public @ResponseBody
     String delete(@RequestParam("id") Long id) {
         try{
@@ -56,7 +53,7 @@ public class ItemController {
         }
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/orderGet", produces = "text/plan")
+    @RequestMapping(method = RequestMethod.GET, value = "/itemGet", produces = "text/plan")
     public @ResponseBody
     String findById(@RequestParam("id") Long id) {
         try{

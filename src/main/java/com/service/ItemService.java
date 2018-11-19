@@ -9,12 +9,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 
-//@Service
+@Service
 public class ItemService {
 
     private ItemDAO itemDAO;
 
-    //@Autowired
+    @Autowired
     public ItemService(ItemDAO itemDAO) {
         this.itemDAO = itemDAO;
     }
